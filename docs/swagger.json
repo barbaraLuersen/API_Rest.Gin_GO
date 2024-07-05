@@ -1,0 +1,301 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/alunos": {
+            "get": {
+                "description": "Retorna uma lista de todos os alunos cadastrados",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "alunos"
+                ],
+                "summary": "Exibe todos os alunos",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Aluno"
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Adiciona um novo aluno ao banco de dados",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "alunos"
+                ],
+                "summary": "Cria um novo aluno",
+                "parameters": [
+                    {
+                        "description": "Novo aluno",
+                        "name": "aluno",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Aluno"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Aluno"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/alunos/cpf/{cpf}": {
+            "get": {
+                "description": "Retorna um aluno pelo CPF",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "alunos"
+                ],
+                "summary": "Busca aluno por CPF",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "CPF do aluno",
+                        "name": "cpf",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Aluno"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/alunos/{id}": {
+            "get": {
+                "description": "Retorna um aluno pelo ID",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "alunos"
+                ],
+                "summary": "Busca aluno por ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "ID do aluno",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Aluno"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Remove um aluno pelo ID",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "alunos"
+                ],
+                "summary": "Deleta aluno por ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "ID do aluno",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "description": "Atualiza os dados de um aluno pelo ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "alunos"
+                ],
+                "summary": "Edita aluno por ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "ID do aluno",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Dados do aluno atualizados",
+                        "name": "aluno",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Aluno"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Aluno"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/saudacao/{nome}": {
+            "get": {
+                "description": "Retorna uma saudação personalizada para o usuário",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "saudacoes"
+                ],
+                "summary": "Saúda o usuário",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Nome do usuário",
+                        "name": "nome",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "gorm.DeletedAt": {
+            "type": "object",
+            "properties": {
+                "time": {
+                    "type": "string"
+                },
+                "valid": {
+                    "description": "Valid is true if Time is not NULL",
+                    "type": "boolean"
+                }
+            }
+        },
+        "models.Aluno": {
+            "type": "object",
+            "properties": {
+                "cpf": {
+                    "description": "len valida o número máximo de caracteres",
+                    "type": "string"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "deletedAt": {
+                    "$ref": "#/definitions/gorm.DeletedAt"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "nome": {
+                    "description": "nonzero valida se é zero, nulo ou vazio",
+                    "type": "string"
+                },
+                "rg": {
+                    "description": "regexp valida o conteúdo da string, aceitando apenas aquilo que foi setado entre colchetes []",
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

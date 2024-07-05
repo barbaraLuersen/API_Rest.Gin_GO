@@ -1,0 +1,199 @@
+definitions:
+  gorm.DeletedAt:
+    properties:
+      time:
+        type: string
+      valid:
+        description: Valid is true if Time is not NULL
+        type: boolean
+    type: object
+  models.Aluno:
+    properties:
+      cpf:
+        description: len valida o número máximo de caracteres
+        type: string
+      createdAt:
+        type: string
+      deletedAt:
+        $ref: '#/definitions/gorm.DeletedAt'
+      id:
+        type: integer
+      nome:
+        description: nonzero valida se é zero, nulo ou vazio
+        type: string
+      rg:
+        description: regexp valida o conteúdo da string, aceitando apenas aquilo que
+          foi setado entre colchetes []
+        type: string
+      updatedAt:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /alunos:
+    get:
+      description: Retorna uma lista de todos os alunos cadastrados
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Aluno'
+            type: array
+      summary: Exibe todos os alunos
+      tags:
+      - alunos
+    post:
+      consumes:
+      - application/json
+      description: Adiciona um novo aluno ao banco de dados
+      parameters:
+      - description: Novo aluno
+        in: body
+        name: aluno
+        required: true
+        schema:
+          $ref: '#/definitions/models.Aluno'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Aluno'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Cria um novo aluno
+      tags:
+      - alunos
+  /alunos/{id}:
+    delete:
+      description: Remove um aluno pelo ID
+      parameters:
+      - description: ID do aluno
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Deleta aluno por ID
+      tags:
+      - alunos
+    get:
+      description: Retorna um aluno pelo ID
+      parameters:
+      - description: ID do aluno
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Aluno'
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Busca aluno por ID
+      tags:
+      - alunos
+    patch:
+      consumes:
+      - application/json
+      description: Atualiza os dados de um aluno pelo ID
+      parameters:
+      - description: ID do aluno
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Dados do aluno atualizados
+        in: body
+        name: aluno
+        required: true
+        schema:
+          $ref: '#/definitions/models.Aluno'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Aluno'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Edita aluno por ID
+      tags:
+      - alunos
+  /alunos/cpf/{cpf}:
+    get:
+      description: Retorna um aluno pelo CPF
+      parameters:
+      - description: CPF do aluno
+        in: path
+        name: cpf
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Aluno'
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Busca aluno por CPF
+      tags:
+      - alunos
+  /saudacao/{nome}:
+    get:
+      description: Retorna uma saudação personalizada para o usuário
+      parameters:
+      - description: Nome do usuário
+        in: path
+        name: nome
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Saúda o usuário
+      tags:
+      - saudacoes
+swagger: "2.0"
