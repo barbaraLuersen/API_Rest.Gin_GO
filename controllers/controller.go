@@ -16,6 +16,13 @@ func ExibeTodosAlunos(c *gin.Context) {
 
 func Saudacao(c *gin.Context) {
 	nome := c.Params.ByName("nome")
+
+	// Verifica se a rota é "/index" e evita tratá-la como um nome de aluno
+	if nome == "index" {
+		ExibePaginaIndex(c)
+		return
+	}
+
 	c.JSON(200, gin.H{
 		"API diz": "E ai " + nome + ", tudo beleza?",
 	})
@@ -95,4 +102,17 @@ func BuscaAlunoPorCPF(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, aluno)
+}
+
+// Daqui para baixo são funções para exibição de tela HTML com Gin
+func ExibePaginaIndex(c *gin.Context) {
+	var alunos []models.Aluno
+	database.DB.Find(&alunos)
+	c.HTML(http.StatusOK, "index.html", gin.H{
+		"alunos": alunos,
+	})
+}
+
+func ExibePagina404(c *gin.Context) {
+	c.HTML(http.StatusNotFound, "404.html", nil)
 }
